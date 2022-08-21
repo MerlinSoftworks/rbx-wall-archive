@@ -1,13 +1,9 @@
 <template>
 <div>
   <div id="sidebar">
-    <img
-      v-for="group in groups"
-      :key="group"
-      :class="{ 'groupPicker': true, 'groupPicker--active': state.gid === group }"
-      src="assets/images/{{ group }}.png"
-      @click="changeGid(85654)"
-    >
+    <img class="groupPicker" src="assets/images/nfc.png" @click="changeGid(85654)">
+    <img class="groupPicker" src="assets/images/uaf.png" @click="changeGid(80738)">
+    <img class="groupPicker" src="assets/images/ucr.png" @click="changeGid(18)">
   </div>
   <h1 id="header">
   <a @click="reset">ROBLOX Wall Archive</a>
@@ -19,7 +15,7 @@
     <h3 v-if="numResults == 0 && !isLoading">No results</h3>
     <button v-if="numResults > 0 && !isLoading" @click="page = 1; changeSortOrder()">Sort: {{ sortOrder == -1 ? 'New to old' : 'Old to new' }}</button>
   </div>
-  <div v-if="!isLoading" v-for="post in posts" :key="post.id" :id="post.id" class="post" @click.self="getContext(post.id)">
+  <div v-if="!isLoading" v-for="post in posts" v-bind:key="post.id" v-bind:id="post.id" class="post" @click.self="getContext(post.id)">
     <a target="_blank" :href="`https://www.roblox.com/users/${post.poster.user.userId}/profile`">
       <img class="avatar" :src="`https://www.roblox.com/headshot-thumbnail/image?userId=${post.poster.user.userId}&width=420&height=420&format=png`">
     </a>
@@ -56,12 +52,6 @@
     gid: 85654,
     spotlightMsg: null
   }
-
-  const groups = [
-    85654,
-    80738,
-    18
-  ];
 
   function sanitizePostsResponse(response) {
     response.data.posts.forEach(post => {
@@ -341,4 +331,3 @@ button:hover {
   animation: 0.75s ease-in-out 0s 2 flash;
 }
 </style>
-
